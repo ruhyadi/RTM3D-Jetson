@@ -1,13 +1,13 @@
 # Project information
 site_name: RTM3D Jetson
-site_url: https://ruhyadi.github.io/rtm3d
+site_url: https://ruhyadi.github.io/rtm3d-jetson
 site_author: Didi Ruhyadi
 site_description: >-
   3D Object Detection with Jetson Nano
   
 # Repository
 repo_name: ruhyadi/rtm3d
-repo_url: https://github.com/ruhyadi/rtm3d
+repo_url: https://github.com/ruhyadi/rtm3d-jetson
 edit_uri: ""
 
 # Copyright
