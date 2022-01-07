@@ -46,6 +46,7 @@ def demo(opt):
           time_str = time_str + '{} {:.3f}s |'.format(stat, ret[stat])
       time_str=time_str+'{} {:.3f}s |'.format('tol', time_tol/num)
       #print(time_str)
+      
 if __name__ == '__main__':
     opt = opts().init()
     demo(opt)

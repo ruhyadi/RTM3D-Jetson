@@ -23,7 +23,6 @@ from utils.debugger import Debugger
 
 from .base_detector import BaseDetector
 
-
 class CarPoseDetector(BaseDetector):
     def __init__(self, opt):
         super(CarPoseDetector, self).__init__(opt)
@@ -91,8 +90,7 @@ class CarPoseDetector(BaseDetector):
         dets[:, :, :4] *= self.opt.down_ratio
         dets[:, :, 5:39] *= self.opt.down_ratio
         img = images[0].detach().cpu().numpy().transpose(1, 2, 0)
-        img = np.clip(((
-                               img * self.std + self.mean) * 255.), 0, 255).astype(np.uint8)
+        img = np.clip(((img * self.std + self.mean) * 255.), 0, 255).astype(np.uint8)
         pred = debugger.gen_colormap(output['hm'][0].detach().cpu().numpy())
         debugger.add_blend_img(img, pred, 'pred_hm')
         if self.opt.hm_hp:

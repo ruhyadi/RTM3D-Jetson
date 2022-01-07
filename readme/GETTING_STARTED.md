@@ -28,12 +28,12 @@ Run following command for visualization.
 ## All-in-one fashion
 Generating results in all-in-one fashion. It simultaneously generates main center, 2D bounding box, regressed keypoints, heatmap keypoint, dim, orientation, confidence. 
       
-      ~~~
-        # ResNet-18 backbone
-        python ./src/faster.py --demo ./kitti_format/data/kitti/val.txt --calib_dir ./kitti_format/data/kitti/calib/ --load_model ./kitti_format/exp/KM3D_res18/model_last.pth --gpus 0 --arch res_18
-        # or DLA-3D backbone
-        python ./src/faster.py --demo ./kitti_format/data/kitti/val.txt --calib_dir ./kitti_format/data/kitti/calib/ --load_model ./kitti_format/exp/KM3D_dla34/model_last.pth --gpus 0 --arch res_18
-      ~~~
+```
+# ResNet-18 backbone
+python ./src/faster.py --demo ./kitti_format/data/kitti/val.txt --calib_dir ./kitti_format/data/kitti/calib/ --load_model ./models/model_res18_1.pth --gpus 0 --arch res_18
+# or DLA-3D backbone
+python ./src/faster.py --demo ./kitti_format/data/kitti/val.txt --calib_dir ./kitti_format/data/kitti/calib/ --load_model ./kitti_format/exp/KM3D_dla34/model_last.pth --gpus 0 --arch res_18
+```
 ## Evaluation
 Run following command for evaluation.
    ~~~

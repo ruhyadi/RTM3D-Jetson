@@ -8,9 +8,11 @@ import os
 from detectors.car_pose import CarPoseDetector
 from opts import opts
 import shutil
+
 image_ext = ['jpg', 'jpeg', 'png', 'webp']
 video_ext = ['mp4', 'mov', 'avi', 'mkv']
 time_stats = ['net', 'dec']
+
 def demo(opt):
     os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
     opt.debug = max(opt.debug, 1)
@@ -50,6 +52,7 @@ def demo(opt):
           time_str = time_str + '{} {:.3f}s |'.format(stat, ret[stat])
       time_str=time_str+'{} {:.3f}s |'.format('tol', time_tol/num)
       print(time_str)
+      
 if __name__ == '__main__':
     opt = opts().init()
     demo(opt)
