@@ -678,7 +678,7 @@ def gen_position(kps,dim,rot,meta,const):
     #pinv[:, :, 1] = pinv[:, :, 1] + dim[:, :, 0] / 2
     return pinv,rot_y,kps
 def car_pose_decode(
-        heat, wh, kps,dim,rot, prob=None,reg=None, hm_hp=None, hp_offset=None, K=100,meta=None,const=None):
+        heat, wh, kps, dim, rot, prob=None, reg=None, hm_hp=None, hp_offset=None, K=100, meta=None, const=None):
 
     batch, cat, height, width = heat.size()
     num_joints = kps.shape[1] // 2
@@ -768,9 +768,8 @@ def car_pose_decode(
     position,rot_y,kps_inv=gen_position(kps,dim,rot,meta,const)
 
     detections = torch.cat([bboxes, scores, kps_inv,dim,hm_score,rot_y,position,prob,clses], dim=2)
-
-
     return detections
+    
 def car_pose_decode_faster(
         heat, kps,dim,rot, prob,K=100,meta=None,const=None):
 

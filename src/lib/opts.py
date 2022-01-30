@@ -18,12 +18,12 @@ class opts(object):
                                   '2: show the network output features'
                                   '3: use matplot to display' # useful when lunching training with ipython notebook
                                   '4: save all visualizations to disk')
-    self.parser.add_argument('--demo', default='', 
+    self.parser.add_argument('--demo', default='./demo_kitti_format/data/kitti/image', 
                              help='path to image/ image folders/ video. '
                                   'or "webcam"')
-    self.parser.add_argument('--calib_dir', default='',
+    self.parser.add_argument('--calib_dir', default='./demo_kitti_format/data/kitti/calib/',
                              help='path to calib for 3D display')
-    self.parser.add_argument('--load_model', default='',
+    self.parser.add_argument('--load_model', default='./models/model_res18_1.pth',
                              help='path to pretrained model')
     self.parser.add_argument('--data_dir', default='',
                              help='path to dataset')
@@ -32,7 +32,7 @@ class opts(object):
                                   'Reloaded the optimizer parameter and '
                                   'set load_model to model_last.pth '
                                   'in the exp dir if load_model is empty.')
-    self.parser.add_argument('--vis', action='store_true')
+    self.parser.add_argument('--vis', action='store_true', default=True)
     self.parser.add_argument('--logger_save', type=int, default=0,
                              help='help')
     self.parser.add_argument('--dataset', default='kitti',
@@ -70,7 +70,7 @@ class opts(object):
                              choices=['white', 'black'])
     
     # model
-    self.parser.add_argument('--arch', default='dla_34', 
+    self.parser.add_argument('--arch', default='res_18', 
                              help='model architecture. Currently tested'
                                   'res_18 | res_101 | resdcn_18 | resdcn_101 |'
                                   'dlav0_34 | dla_34 | hourglass')

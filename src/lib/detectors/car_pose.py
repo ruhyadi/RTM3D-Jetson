@@ -28,10 +28,14 @@ class CarPoseDetector(BaseDetector):
         super(CarPoseDetector, self).__init__(opt)
         self.flip_idx = opt.flip_idx
 
+    # hm: heatmap
     def process(self, images,meta, return_time=False):
         with torch.no_grad():
             torch.cuda.synchronize()
+            
+            # pose prediction with nn
             output = self.model(images)[-1]
+            # TODO: get know output model
             output['hm'] = output['hm'].sigmoid_()
             if self.opt.hm_hp and not self.opt.mse_loss:
                 output['hm_hp'] = output['hm_hp'].sigmoid_()
@@ -51,6 +55,8 @@ class CarPoseDetector(BaseDetector):
                     if hm_hp is not None else None
                 reg = reg[0:1] if reg is not None else None
                 hp_offset = hp_offset[0:1] if hp_offset is not None else None
+
+            # decode output
             if self.opt.faster==True:
                 dets = car_pose_decode_faster(
                     output['hm'], output['hps'], output['dim'], output['rot'], prob=output['prob'],K=self.opt.K, meta=meta, const=self.const)

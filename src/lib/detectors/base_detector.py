@@ -97,6 +97,7 @@ class BaseDetector(object):
         calib = np.array(line[:-1].split(' ')[1:], dtype=np.float32)
         calib = calib.reshape(3, 4)
         return calib
+
   def run(self, image_or_path_or_tensor, meta=None):
     load_time, pre_time, net_time, dec_time, post_time = 0, 0, 0, 0, 0
     merge_time, tot_time = 0, 0
@@ -124,18 +125,22 @@ class BaseDetector(object):
     for scale in self.scales:
       scale_start_time = time.time()
       if not pre_processed:
+
+        # process image
         images, meta = self.pre_process(image, scale, meta)
         meta['trans_output_inv']=meta['trans_output_inv'].to(self.opt.device)
       else:
         images = pre_processed_images['images'][scale][0]
         meta = pre_processed_images['meta'][scale]
         meta = {k: v.numpy()[0] for k, v in meta.items()}
+      # add calibration file to meta
       meta['calib']=calib
       images = images.to(self.opt.device)
       torch.cuda.synchronize()
       pre_process_time = time.time()
       pre_time += pre_process_time - scale_start_time
       
+      # process image
       output, dets, forward_time = self.process(images,meta,return_time=True)
 
       torch.cuda.synchronize()
@@ -146,6 +151,7 @@ class BaseDetector(object):
       if self.opt.debug >= 2:
         self.debug(debugger, images, dets, output, scale)
       
+      # post process image
       dets = self.post_process(dets, meta, scale)
       torch.cuda.synchronize()
       post_process_time = time.time()

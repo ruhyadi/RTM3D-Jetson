@@ -22,6 +22,8 @@ def demo(opt):
     opt.reg_hp_offset=False
     opt.faster=True
     Detector = CarPoseDetector
+
+    # build detector
     detector = Detector(opt)
     if os.path.exists(opt.results_dir):
         shutil.rmtree(opt.results_dir,True)
@@ -45,6 +47,7 @@ def demo(opt):
     num=0
     for (image_name) in image_names:
       num+=1
+      # run detector
       ret = detector.run(image_name)
       time_str = ''
       for stat in time_stats:

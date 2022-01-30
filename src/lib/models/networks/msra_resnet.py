@@ -32,7 +32,6 @@ def conv3x3(in_planes, out_planes, stride=1):
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
                      padding=1, bias=False)
 
-
 class BasicBlock(nn.Module):
     expansion = 1
 
@@ -63,7 +62,6 @@ class BasicBlock(nn.Module):
         out = self.relu(out)
 
         return out
-
 
 class Bottleneck(nn.Module):
     expansion = 4
@@ -104,7 +102,6 @@ class Bottleneck(nn.Module):
         out = self.relu(out)
 
         return out
-
 
 class PoseResNet(nn.Module):
 
@@ -249,6 +246,7 @@ class PoseResNet(nn.Module):
         fig.savefig(savename, dpi=200)
         fig.clf()
         plt.close()
+        
     def init_weights(self, num_layers, pretrained=True):
         if pretrained:
             # print('=> init resnet deconv weights from normal distribution')
@@ -299,6 +297,7 @@ resnet_spec = {18: (BasicBlock, [2, 2, 2, 2]),
 def get_pose_net(num_layers, heads, head_conv):
   block_class, layers = resnet_spec[num_layers]
 
+    # make PoseResNet Model
   model = PoseResNet(block_class, layers, heads, head_conv=head_conv)
   model.init_weights(num_layers, pretrained=True)
   return model
